@@ -21,8 +21,8 @@ M.cusorHighlight = vim.api.nvim_create_augroup("cusorHighlight", { clear = true 
 function M.setup(normalModColor, insertModColor, visualModColor, nohighlightIfBufferLeave)
 
     local settings = {
-        normal = "guibg=#2e5c3f",
-        insert = "guibg=#355666",
+        normal = "guibg=#355666",
+        insert = "guibg=#2e5c3f",
         visual = "guibg=#ad51a7",
         nohighlightIfBufferLeave = true,
     }
