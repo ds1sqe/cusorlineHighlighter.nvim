@@ -48,7 +48,7 @@ function M.setup(normalModColor, insertModColor, visualModColor, nohighlightIfBu
         pattern = { "*" },
         command = "hi CursorLine " .. settings.insert
     })
-    vim.api.nvim_create_autocmd("Visual", {
+    vim.api.nvim_create_autocmd("InsertLeave", {
         group = M.cusorHighlight,
         pattern = { "*" },
         command = "hi Visual " .. settings.visual
