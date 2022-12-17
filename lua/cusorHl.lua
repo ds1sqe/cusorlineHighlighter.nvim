@@ -17,11 +17,19 @@ function M.setup(setting)
 	local autoCmd = vim.api.nvim_create_autocmd
 
 	-- default settings are, normal = skyblue, insert = green , visual = pink , turn off if leave buffer = true
+	-- and ignore document or popups or something like that
 	local config = {
 		normal = "guibg=#355666",
 		insert = "guibg=#2e5c3f",
 		visual = "guibg=#ad51a7",
 		nohighlightIfBufferLeave = true,
+		ignore = { -- patterns to ignore
+			"doc",
+			"help",
+			".txt",
+			"noice",
+			"notify",
+		},
 	}
 
 	vim.tbl_extend("force", config, setting)
@@ -46,7 +54,14 @@ function M.setup(setting)
 		autoCmd("BufEnter", {
 			group = M.toggleWindowHighlight,
 			pattern = "*",
-			command = "set relativenumber cursorline",
+			callback = function()
+				if vim.tbl_contains(config.ignore, vim.bo.filetype) then
+					vim.wo.number = false
+					vim.wo.relativenumber = false
+					return
+				end
+				vim.cmd("set relativenumber cursorline")
+			end,
 		})
 
 		autoCmd("BufLeave", {
